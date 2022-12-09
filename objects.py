@@ -1,4 +1,5 @@
 from typing import Dict, List
+from categories import *
 import csv
 import random
 
@@ -18,7 +19,17 @@ class Song():
         self.title = title
         self.artist = artist
         self.genre = genre
+        self.cat_genre = ""
         self.year = year
+        
+    def set_rock(self) -> None:
+        self.cat_genre = "rock"
+    
+    def set_pop(self) -> None:
+        self.cat_genre = "pop"
+        
+    def set_techno(self) -> None:
+        self.cat_genre = "techno"
 
     def __repr__(self):
         return f"TITLE: {self.title}"
@@ -40,6 +51,7 @@ class Playlist():
 
 class User():
     def __init__(self, songs_listened: List[Song] = []):
+        self.id = id(self)
         self.songs_listened = songs_listened
         self.songs_recommended = []
         self.pop = 0
@@ -48,13 +60,18 @@ class User():
         
     def extend_recommendation(self, rec_list :List[Song]):
         self.songs_recommended.extend(rec_list)
-        # WHY DOES THIS GENERATE ERROR IN 6/10 runs?
         
     def change_preferences(self, preferences :tuple):
         self.pop = preferences[0]
         self.rock = preferences[1]
         self.techno = preferences[2]
         
+    def attributes(self):
+        return [self.id, self.pop, self.rock, self.techno] + self.songs_listened + self.songs_recommended
+        
+    def listened_to_recommend(self, success_rate :float) -> None:
+        nr = int((len(self.songs_recommended) * 0.5))
+        self.songs_listened.extend(random.sample(self.songs_recommended, nr))
 
 
 # *********************************************************************
@@ -112,7 +129,7 @@ def create_songs():
 
 
 # Function to create playlists
-def create_playlists(songs :List[Song]):
+def create_random_playlists(songs :List[Song]) -> List[Song]:
     """
     Creates a new playlist with 50 randomly chosen songs from our songs-database
     :return:
@@ -124,20 +141,48 @@ def create_playlists(songs :List[Song]):
         # Create a  list of 50 songs randomly chosen from our list of all songs
         song_list = random.sample(songs, 50)
         new_playlist = Playlist(f"Playlist #{i}", song_list)
-
         # Add the new playlist to the list of all playlists
         list_of_playlists.append(new_playlist)
-
     # Return the list containing all playlists
     return list_of_playlists
 
 
-def find_categories(songs :List[Song]):
+def create_genre_playlists(songs :List[Song]) -> List[Playlist]:
+    genre_playlists = {}
+    output = []
+    for song in songs:
+        genre_playlists[song.genre] = genre_playlists.get(song.genre, []) + [song]
+    for playlist in genre_playlists.keys():
+        output.append(Playlist(playlist, genre_playlists[playlist]))
+    return output
+
+
+def create_cat_playlist(songs :List[Song]) -> List[Playlist]:
+    cat_genre_playlists = {}
+    output = []
+    for song in songs:
+        cat_genre_playlists[song.cat_genre] = cat_genre_playlists.get(song.cat_genre, []) + [song]
+    for playlist in cat_genre_playlists.keys():
+        output.append(Playlist(playlist, cat_genre_playlists[playlist]))
+    return output
+
+
+def find_categories(songs :List[Song]) -> List[str]:
     list_of_categories = []
     for song in songs:
         if song.genre not in list_of_categories:
             list_of_categories.append(str(song.genre))
     return list_of_categories
+
+
+def categorize_genre(songs :List[Song]) -> None:
+    for song in songs:
+        if song.genre in rock:
+            song.set_rock()
+        if song.genre in pop:
+            song.set_pop()
+        if song.genre in techno:
+            song.set_techno()
 
 
 ###################################################################
