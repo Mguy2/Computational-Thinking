@@ -15,13 +15,28 @@ import random
 
 class Song():
     # NOTE: adjust the constructor method with the required song parameters
-    def __init__(self, title, artist, genre, year):
+    def __init__(self, title, artist, genre, year, song_bpm,
+                song_energy, song_d_ability, song_db, song_liveness,
+                song_valence, song_length, song_accoustic, song_speech):
+        self.id = id(self)
         self.title = title
         self.artist = artist
         self.genre = genre
         self.cat_genre = ""
-        self.year = year
-        
+        self.year = int(year)
+        self.bpm = int(song_bpm)
+        self.energy = int(song_energy)
+        self.danceability = int(song_d_ability)
+        self.db = int(song_db)
+        self.liveness = int(song_liveness)
+        self.valence = int(song_valence)
+        self.length = int(song_length)
+        self.accoustic = int(song_accoustic)
+        self.speech = int(song_speech)
+
+    def list_attributes(self) -> Dict[str, any]:
+        return vars(self)
+
     def set_rock(self) -> None:
         self.cat_genre = "rock"
     
@@ -33,7 +48,6 @@ class Song():
 
     def __repr__(self):
         return f"TITLE: {self.title}"
-
     # Control what info is displayed when we execute "print(Song)"
     def __str__(self):
         return f"TITLE: {self.title}" #| ARTIST: {self.artist} | GENRE: {self.genre} | YEAR: {self.year}"
@@ -101,7 +115,8 @@ def create_songs():
         for row in reader:
             source_file_list.append(row)
 
-    # Loop over all songs and collect the song info from the list
+    # Loop over all songs and collect the song info from the list 
+    # Why not loop? this is solely for readability purposes. :)
     for song in source_file_list[1:]:
         song_title = song[0]
         song_artist = song[1]
@@ -116,10 +131,11 @@ def create_songs():
         song_length = song[10]
         song_accoustic = song[11]
         song_speech = song[12]
-        
     
         # Create a new song object with the parameters defined in the song class constructor method
-        new_song = Song(song_title, song_artist, song_genre, song_year)
+        new_song = Song(song_title, song_artist, song_genre, song_year, song_bpm,
+                        song_energy, song_d_ability, song_db, song_liveness,
+                        song_valence, song_length, song_accoustic, song_speech)
 
         # Add the song to the overall song list (the song database)
         song_list.append(new_song)
@@ -135,7 +151,6 @@ def create_random_playlists(songs :List[Song]) -> List[Song]:
     :return:
     """
     list_of_playlists = []  # Here we will add all the created playlist objects
-
     # Create a new playlist containing the list of 50 random songs from above
     for i in range(1,101):
         # Create a  list of 50 songs randomly chosen from our list of all songs
@@ -183,6 +198,26 @@ def categorize_genre(songs :List[Song]) -> None:
             song.set_pop()
         if song.genre in techno:
             song.set_techno()
+            
+            
+# def custom_playlist(play_list_name :str, playlist_max_song :int, songs :List[Song],
+#                     artist :str = "", genre :str = "", year :tuple = (0, 3000),
+#                     bpm :tuple = (0, 0), energy :tuple = (0, 0), danceability :tuple = (0, 0), db :tuple = (0, 0),
+#                     liveness :tuple = (0, 0), valence :tuple = (0, 0), length :tuple = (0, 0), accoustic :tuple = (0, 0),
+#                     speech :tuple = (0, 0)):
+#     min_song = Song("min_song", artist, genre, year[0], bpm[0], energy[0], danceability[0],
+#                     db[0], liveness[0], valence[0], length[0], accoustic[0], speech[0])
+#     max_song = Song("min_song", artist, genre, year[1], bpm[1], energy[1], danceability[1],
+#                     db[1], liveness[1], valence[1], length[1], accoustic[1], speech[1])
+#     output_list = []
+#     min_attr = min_song.list_attributes()
+#     max_attr = max_song.list_attributes()
+#     for song in songs:
+#         song_attr = song.list_attributes()
+#         shared_items = {shared: min_attr[shared] for shared in min_attr if shared in song_attr and min_attr[shared] == song_attr[shared]}
+#         print(shared_items)
+#     return Playlist(play_list_name, output_list)
+
 
 
 ###################################################################

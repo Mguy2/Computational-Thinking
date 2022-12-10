@@ -53,6 +53,9 @@ def main():
         # The previously recommended songs are now listened to:
         # Here the example succes rate is 50%
         took_recomendation(user_list, 0.5)      
+        # The next function is to make a custom playlist based on any parameter
+        # still needs to be finished
+        # print(custom_playlist("test", 100, songs, 'mark Ronson', 'dance pop'))
 
 
         
