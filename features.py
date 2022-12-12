@@ -103,7 +103,27 @@ def give_recommendations_week_2(users :List[User], playlists :List[Playlist], re
 #=====================================================================#
 #=====================================================================#
 #=====================================================================#
-
+def find_mood(user :User) -> tuple:
+    mood = {"happy": 0, "party": 0, "calming": 0, "lounge": 0}
+    for songs in user.songs_listened:
+        if songs.energy > 50 and songs.valence >50:
+            mood['happy'] += 1
+        if songs.danceability > 70 and songs.db > -5:
+            mood['party'] += 1
+        if songs.energy < 50 and songs.valence > 50:
+            mood['calming'] += 1
+        if songs.energy < 70 and songs.bpm < 100:
+            mood['lounge'] += 1
+    total = sum(mood.values())
+    if mood['happy'] > 0:
+        mood['happy'] = mood['happy'] / total * 100
+    if mood['party'] > 0:
+        mood['party'] = mood['party'] / total * 100
+    if mood['calming'] > 0:
+        mood['calming'] = mood['calming'] / total * 100
+    if mood['lounge'] > 0:
+        mood['lounge'] = mood['lounge'] / total * 100
+    return (mood['happy'], mood['party'], mood['calming'], mood['lounge'])
 
 # Extra Utils for testing
 #=====================================================================#
