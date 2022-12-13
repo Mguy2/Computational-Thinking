@@ -1,12 +1,14 @@
-from objects import *
+from classes import *
 from time import gmtime, strftime
-from features import *
+from week1 import *
+from week2 import *
+from week3 import *
 from utils import *
 from save_state import *
 
 
 # __  __        _             
-#|  \/  | __ _ (_) _ _        
+#|  \/  | __ _ (_) _ _
 #| |\/| |/ _` || || ' \       
 #|_|  |_|\__/_||_||_||_|   
 #=====================================================================#
