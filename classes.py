@@ -55,13 +55,30 @@ class Song():
         party_factor = stat.mean([energy, danceability])
         if party_factor >= 0.5:
             self.mood['party'] = True
+            if valence >= 0.5:
+                self.mood['happy'] = True
             return  # We exit the method since a party song can never be a calming or lounge song
+
         # Set the 'lounge' mood
         if bpm <= 120:
             self.mood['lounge'] = True
+            # Set the 'calming' mood
+            if db <= -5:
+                self.mood['calming'] = True
+            if valence >= 0.5:
+                self.mood['happy'] = True
+            return  # We exit the method since we found at least one main mood (lounge)
+
         # Set the 'calming' mood
         if db <= -5:
             self.mood['calming'] = True
+            if valence >= 0.5:
+                self.mood['happy'] = True
+            return  # We exit the method since we found a main mood (calming)
+
+        # If none of the three moods 'party', 'lounge' or 'calming' apply, set the mood 'happy' to True
+        self.mood['happy'] = True
+
 
     def __repr__(self):
         return f"TITLE: {self.title}"
@@ -92,6 +109,7 @@ class User():
         self.pop = 0
         self.rock = 0
         self.techno = 0
+        self.mood = {'happy': 0, 'party': 0, 'calming': 0, 'lounge': 0}
         
     def extend_recommendation(self, rec_list: List[Song]):
         self.songs_recommended.extend(rec_list)
@@ -100,6 +118,12 @@ class User():
         self.pop = preferences[0]
         self.rock = preferences[1]
         self.techno = preferences[2]
+
+    def update_mood(self, mood_share: tuple):
+        self.mood['happy'] = mood_share[0]
+        self.mood['party'] = mood_share[1]
+        self.mood['calming'] = mood_share[2]
+        self.mood['lounge'] = mood_share[3]
         
     def attributes(self):
         return [self.id, self.pop, self.rock, self.techno] + self.songs_listened + self.songs_recommended

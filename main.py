@@ -53,11 +53,15 @@ def main():
         # Week 3
         #=========================================================#
         # The previously recommended songs are now listened to:
-        # Here the example succes rate is 50%
-        took_recomendation(user_list, 0.5)      
-        # The next function is to make a custom playlist based on any parameter
-        # still needs to be finished
-        # print(custom_playlist("test", 100, songs, 'mark Ronson', 'dance pop'))
+        # Here the example success rate is 50%
+        took_recomendation(user_list, 0.5)
+        # Find user moods based on songs listened to
+        users_find_mood(user_list)
+        # Give recommendations based on listening history
+        # Returns tuple with users given recommendations[0] and not on [1]
+        week3 = give_recommendations_week_3(user_list, songs, 5)
+        # Output current state to CSV file (Week 3)
+        save_state(user_list, 3, clock_time)
 
 
         
