@@ -40,7 +40,7 @@ def discover_week_3(user: User, songs: List[Song], rec: int):
     calming_list = []
     lounge_list = []
     num_rec_songs = {"happy": 0, "party": 0, "calming": 0, "lounge": 0}
-    dominant_mood = max(user.mood)
+    dominant_mood = max(user.mood, key=user.mood.get)
 
     # Calculate for each mood the number of recommended songs
     # NOTE: we round down the number of songs to the nearest integer
