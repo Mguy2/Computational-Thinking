@@ -1,4 +1,4 @@
-from objects import *
+from classes import *
 import csv
 import os
 
@@ -13,7 +13,7 @@ import os
 
 
 def save_state(users :List[User], step :int, clock_time :str) -> None:
-    headers = ['USER ID', 'POP_rate', 'ROCK_rate', 'TECHNO_rate', 'SONGS_LISTENED', 'SONGS_RECOMMENDED']
+    headers = ['USER ID', 'POP_rate', 'ROCK_rate', 'TECHNO_rate', 'USER MOOD', 'SONGS_LISTENED', 'SONGS_RECOMMENDED']
     directory = os.path.join("Simulations", "Out "+str(clock_time))
     if not os.path.exists(directory):
         os.makedirs(directory)   

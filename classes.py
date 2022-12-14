@@ -126,10 +126,10 @@ class User():
         self.mood['lounge'] = mood_share[3]
         
     def attributes(self):
-        return [self.id, self.pop, self.rock, self.techno] + self.songs_listened + self.songs_recommended
+        return [self.id, self.pop, self.rock, self.techno, self.mood] + self.songs_listened + self.songs_recommended
         
     def listened_to_recommend(self, success_rate: float) -> None:
-        nr = int((len(self.songs_recommended) * 0.5))
+        nr = int((len(self.songs_recommended) * success_rate))
         self.songs_listened.extend(random.sample(self.songs_recommended, nr))
 
 

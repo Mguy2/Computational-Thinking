@@ -10,16 +10,6 @@ import random
 # (i.e. week 1-3) are listed in the separate week1, week2, week3 modules.
 # **************************************************************************
 
-# Function to create users
-def create_users(songs: List[Song] = create_songs(), user_nr: int = 100, listened_to_nr: int = 5) -> List[User]:
-    user_list = []
-    # Create 100 users and add them to a list containing all user objects
-    for _ in range(user_nr + 1):
-        new_user_songs = random.sample(songs, listened_to_nr)
-        new_user = User(new_user_songs)
-        user_list.append(new_user)
-    # Return the list containing all users
-    return user_list
 
 
 # Function to create songs from a csv file
@@ -70,6 +60,18 @@ def create_songs():
 
     # Return the song list
     return song_list
+
+
+# Function to create users
+def create_users(songs: List[Song] = create_songs(), user_nr: int = 100, listened_to_nr: int = 5) -> List[User]:
+    user_list = []
+    # Create 100 users and add them to a list containing all user objects
+    for _ in range(user_nr + 1):
+        new_user_songs = random.sample(songs, listened_to_nr)
+        new_user = User(new_user_songs)
+        user_list.append(new_user)
+    # Return the list containing all users
+    return user_list
 
 
 # Function to create playlists

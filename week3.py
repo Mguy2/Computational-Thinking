@@ -2,9 +2,11 @@ from typing import Dict, List
 from classes import *
 import math
 
+
 # **************************************************************************
 # This file contains the code to create the recommendations for week 3
 # **************************************************************************
+
 
 def find_mood(user: User) -> tuple:
     user_mood = {"happy": 0, "party": 0, "calming": 0, "lounge": 0}
@@ -28,6 +30,7 @@ def find_mood(user: User) -> tuple:
 
     # Return a tuple with the relative frequency values of each mood
     return (user_mood['happy'], user_mood['party'], user_mood['calming'], user_mood['lounge'])
+
 
 def users_find_mood(users: User) -> None:
     for user in users:
@@ -66,18 +69,21 @@ def discover_week_3(user: User, songs: List[Song], rec: int):
 
     # Create a list of recommended songs based on the user's mood
     rec_list = []
-    rec_list.append(random.sample(happy_list, num_rec_songs["happy"]))
-    rec_list.append(random.sample(party_list, num_rec_songs["party"]))
-    rec_list.append(random.sample(calming_list, num_rec_songs["calming"]))
-    rec_list.append(random.sample(lounge_list, num_rec_songs["lounge"]))
+    if num_rec_songs["happy"] > 0:
+        rec_list.extend(random.sample(happy_list, num_rec_songs["happy"]))
+    if num_rec_songs["party"] > 0:  
+        rec_list.extend(random.sample(party_list, num_rec_songs["party"]))
+    if num_rec_songs["calming"] > 0:
+        rec_list.extend(random.sample(calming_list, num_rec_songs["calming"]))
+    if num_rec_songs["lounge"] > 0:       
+        rec_list.extend(random.sample(lounge_list, num_rec_songs["lounge"]))
 
-    # Add the list of recommended songs to the user's songs_recommended list
-    user.extend_recommendation(rec_list)
-
+    # Return recommendation
     return rec_list
 
 
 def give_recommendations_week_3(users: List[User], songs: List[Song], rec: int):
     for user in users:
-        discover_week_3(user, songs, rec)
-
+        rec_list = discover_week_3(user, songs, rec)
+        if len(rec_list) > 0:
+            user.extend_recommendation(rec_list)

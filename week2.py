@@ -5,6 +5,7 @@ from classes import *
 # This file contains the code to create the recommendations for week 2
 # **************************************************************************
 
+
 def find_preferences(user: User) -> tuple:
     cat = {"pop": 0, "techno": 0, "rock": 0}
     for song in user.songs_listened:
