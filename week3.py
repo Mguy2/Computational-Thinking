@@ -9,6 +9,14 @@ import math
 
 
 def find_mood(user: User) -> tuple:
+    """Find Mood of user.
+
+    Args:
+        user (User): user to be checked for mood.
+
+    Returns:
+        tuple: Mood statistics of user.
+    """
     user_mood = {"happy": 0, "party": 0, "calming": 0, "lounge": 0}
     for song in user.songs_listened:
         if song.mood['happy'] == True:
@@ -22,6 +30,7 @@ def find_mood(user: User) -> tuple:
     # Get the total sum of all mood counts
     total = sum(user_mood.values())
 
+
     # Calculate the relative frequency of each mood for the user
     user_mood['happy'] = user_mood['happy'] / total
     user_mood['party'] = user_mood['party'] / total
@@ -33,11 +42,26 @@ def find_mood(user: User) -> tuple:
 
 
 def users_find_mood(users: User) -> None:
+    """FInds all moods for a list of users. And sets corresponding user attr.
+
+    Args:
+        users (User): List of uSers.
+    """
     for user in users:
         user.update_mood(find_mood(user))
 
 
 def discover_week_3(user: User, songs: List[Song], rec: int):
+    """Gives recommendation based on mood.
+
+    Args:
+        user (User): User
+        songs (List[Song]): List of songs.
+        rec (int): Number of recommendations
+
+    Returns:
+        _type_: Recommendation.
+    """
     happy_list = []
     party_list = []
     calming_list = []
@@ -83,6 +107,13 @@ def discover_week_3(user: User, songs: List[Song], rec: int):
 
 
 def give_recommendations_week_3(users: List[User], songs: List[Song], rec: int):
+    """Gives recommendation based on mood to a list of users.
+
+    Args:
+        users (List[User]): List of users.
+        songs (List[Song]): List of songs.
+        rec (int): Number of recommendations.
+    """
     for user in users:
         rec_list = discover_week_3(user, songs, rec)
         if len(rec_list) > 0:

@@ -12,8 +12,15 @@ import os
 #=====================================================================#
 
 
-def save_state(users :List[User], step :int, clock_time :str) -> None:
-    headers = ['USER ID', 'POP_rate', 'ROCK_rate', 'TECHNO_rate', 'USER MOOD', 'SONGS_LISTENED', 'SONGS_RECOMMENDED']
+def save_state(users :List[User], step :any, clock_time :str) -> None:
+    """Saves current user properties to a CSV file.
+
+    Args:
+        users (List[User]): List of Users
+        step (any): Message
+        clock_time (str): Clock Time
+    """    
+    headers = ['USER ID', 'AGE', 'LOCATION', 'FRIEND_COUNT', 'POP_RATE', 'ROCK_RATE', 'TECHNO_RATE', 'USER MOOD', 'SONGS_LISTENED', 'SONGS_RECOMMENDED']
     directory = os.path.join("Simulations", "Out "+str(clock_time))
     if not os.path.exists(directory):
         os.makedirs(directory)   

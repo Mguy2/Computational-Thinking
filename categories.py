@@ -1,5 +1,5 @@
 
-
+# All Rock genres
 rock = {
     'alaska indie',
     'alternative r&b',
@@ -15,7 +15,7 @@ rock = {
     'downtempo',
 }
 
-
+# All Pop Genres
 pop = {
     'acoustic pop',
     'art pop',
@@ -40,7 +40,7 @@ pop = {
     'pop',
 }
 
-
+# All Techno Genres
 techno = {
     'chicago rap',
     'australian dance',
@@ -60,5 +60,44 @@ techno = {
     'canadian hip hop',
     'hip hop',
 }
+
+# Basic SOng Moods
+song_moods = {
+    'happy': True,
+    'party': False,
+    'calming': False,
+    'lounge': False
+    }
+
+# World Age Distribution if the world had 10 inhabitants
+population_age_distribution = [
+    "13-20",
+    "13-20",
+    "13-20",
+    "20-39",
+    "20-39",
+    "20-39",
+    "40-59",
+    "40-59",
+    "60-79",
+    "Other"
+]
+
+# Netherlands Geographical Areas
+geographical_areas = [
+    'North-Holland',
+    'South-Holland',
+    'Zealand',
+    'North-Brabant',
+    'Utrecht',
+    'Flevoland',
+    'Frisia',
+    'Groningen',
+    'Drenthe',
+    'Overijssel',
+    'Gelderland',
+    'Limburg'
+]
+    
 
     

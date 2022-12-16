@@ -7,6 +7,14 @@ from classes import *
 
 
 def find_preferences(user: User) -> tuple:
+    """Find preferences of User.
+
+    Args:
+        user (User): User whose preferences need be checked.
+
+    Returns:
+        tuple: User preferences
+    """
     cat = {"pop": 0, "techno": 0, "rock": 0}
     for song in user.songs_listened:
         genre = song.cat_genre
@@ -27,11 +35,26 @@ def find_preferences(user: User) -> tuple:
 
 
 def users_find_preferences(users: User) -> None:
+    """Finds preferences for a list of users.
+
+    Args:
+        users (User): List of Users
+    """
     for user in users:
         user.change_preferences(find_preferences(user))
  
  
 def discover_week_2(user: User, playlists: List[Playlist], rec: int):
+    """Gives recommendations based on apparant preference for a music-category.
+
+    Args:
+        user (User): User
+        playlists (List[Playlist]): List of playlists
+        rec (int): number of recommendations
+
+    Returns:
+        _type_: List of recommended songs.
+    """    
     nr_pop = user.pop /100 * rec
     nr_rock = user.rock /100 * rec
     nr_techno = user.techno / 100 * rec
@@ -51,7 +74,18 @@ def discover_week_2(user: User, playlists: List[Playlist], rec: int):
     return -1
 
 
-def give_recommendations_week_2(users: List[User], playlists: List[Playlist], rec: int):
+def give_recommendations_week_2(users: List[User], playlists: List[Playlist], rec: int) -> tuple:
+    """Gives recommendations to a list of users based on apparent music-category-
+        preferences.
+
+    Args:
+        users (List[User]): List of Users
+        playlists (List[Playlist]): List of playlists
+        rec (int): Number of recommendations per user.
+
+    Returns:
+        Tuple: List of people who received a recommendation and a list of people who did not.
+    """    
     rec_given = []
     rec_not_given = []
     for user in users:

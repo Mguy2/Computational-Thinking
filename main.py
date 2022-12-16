@@ -29,6 +29,8 @@ def main():
         # Create 100 users that listened to 10 songs
         user_list = create_users(songs, 100, 5) 
         test_subject = test_user(songs, 50)
+        # Output current state to CSV file (Week 0)
+        save_state(user_list, 0, clock_time)
 
         # Give recommendations
         # Week 1
@@ -65,7 +67,7 @@ def main():
         # Output current state to CSV file (Week 3)
         save_state(user_list, 3, clock_time)
         
-        # Week 4
+        # Week 4 [OUT OF SCOPE], final results
         #=========================================================#
         # The previously recommended songs are now listened to:
         # Here the example success rate is 50%
@@ -77,6 +79,28 @@ def main():
         # Output current state to CSV file (Week 4)
         save_state(user_list, 4, clock_time)
         
+        # Week 5 [OUT OF SCOPE] Allows for recommendations based on:
+        # - Location
+        # - Age
+        # - Friendships (common interests, sharing interests, see friendlists.)
+        #=========================================================#
+        # New Users join the platform becuase of the 'network effect'.
+        user_list.extend(create_users(songs, 100, 50))
+        # Users make use of the friend function, to share music.
+        users_make_friends(user_list, 10)
+        # The previously recommended songs are now listened to:
+        # Here the example success rate is 50%
+        took_recomendation(user_list, 0.5)  
+        # Find user preferences based on songs listened to
+        users_find_preferences(user_list)
+        # Find user moods based on songs listened to
+        users_find_mood(user_list)
+        # Output current state to CSV file (Week 5)     
+        save_state(user_list, 5, clock_time)
+        
+
+
+
 
 if __name__ == "__main__":
     main()
